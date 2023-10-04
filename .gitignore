@@ -1,7 +1,7 @@
 # compiled output
 /dist
 /node_modules
-
+yarn.lock
 # Logs
 logs
 *.log
@@ -36,3 +36,6 @@ lerna-debug.log*
 
 #DB
 .docker/dbdata/
+
+#env
+.env

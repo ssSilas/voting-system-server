@@ -2,7 +2,7 @@ FROM node:alpine
 
 RUN apk add --no-cache bash
 
-RUN npm install -g @nestjs/cli
+RUN yarn add -g @nestjs/cli
 
 USER node
 
