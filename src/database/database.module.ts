@@ -4,6 +4,8 @@ import { configEnv } from 'src/config/enviroments';
 
 const urlDb = `mongodb://${configEnv.userDb}:${configEnv.passDb}@mongo:${configEnv.portDb}`
 @Module({
-  imports: [MongooseModule.forRoot(urlDb)],
+  imports: [MongooseModule.forRoot(urlDb, {
+    autoCreate: true,
+  })],
 })
 export class DatabaseModule { }
