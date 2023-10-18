@@ -1,9 +1,10 @@
 import * as dotenv from 'dotenv'
 
-export class ConfigEnv {
+class SetEnv {
   userDb: string
   passDb: string
   portDb: number
+  portApp: number
 
   constructor() {
     dotenv.config()
@@ -11,10 +12,14 @@ export class ConfigEnv {
   }
 
   setVariable(): void {
+    //DB
     this.userDb = process.env.USER_DB
     this.passDb = process.env.PASSWORD_DB
     this.portDb = parseInt(process.env.PORT_DB)
+
+    //APP
+    this.portApp = parseInt(process.env.PORT_APP)
   }
 }
 
-export const configEnv = new ConfigEnv()
+export const configEnv = new SetEnv()
