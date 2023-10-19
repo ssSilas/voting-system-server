@@ -5,6 +5,7 @@ class SetEnv {
   passDb: string
   portDb: number
   portApp: number
+  salt: string
 
   constructor() {
     dotenv.config()
@@ -19,6 +20,9 @@ class SetEnv {
 
     //APP
     this.portApp = parseInt(process.env.PORT_APP)
+
+    //PASS
+    this.salt = process.env.SALT
   }
 }
 
