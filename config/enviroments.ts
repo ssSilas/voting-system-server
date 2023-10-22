@@ -6,6 +6,8 @@ class SetEnv {
   portDb: number
   portApp: number
   salt: string
+  secret: string
+  expireToken: string
 
   constructor() {
     dotenv.config()
@@ -21,8 +23,10 @@ class SetEnv {
     //APP
     this.portApp = parseInt(process.env.PORT_APP)
 
-    //PASS
+    //AUTH
     this.salt = process.env.SALT
+    this.secret = process.env.SECRET
+    this.expireToken = process.env.EXPIRE_TOKEN
   }
 }
 

@@ -15,6 +15,7 @@ export class UserBodyDto {
 
   @IsString()
   @IsNotEmpty()
+  @IsEmail()
   email: string
 
   @IsString()
