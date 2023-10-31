@@ -1,16 +1,16 @@
-import { IsEmail, IsNotEmpty, IsNumber, IsString } from "class-validator"
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class LoginBodyDto {
   @IsNotEmpty()
   @IsString()
-  login: string
+  login: string;
 
   @IsString()
   @IsNotEmpty()
-  password: string
+  password: string;
 }
 
 export class PayloadData {
-  id: string
-  email: string
+  id: string;
+  email: string;
 }
