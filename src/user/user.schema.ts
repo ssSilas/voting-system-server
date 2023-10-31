@@ -1,7 +1,7 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { HydratedDocument } from "mongoose";
-import { configEnv } from "config/enviroments";
-import { createHash } from "crypto";
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { HydratedDocument } from 'mongoose';
+import { configEnv } from 'config/enviroments';
+import { createHash } from 'crypto';
 
 export type UserDocument = HydratedDocument<User>;
 
@@ -11,22 +11,22 @@ export class User {
   name: string;
 
   @Prop({ required: true })
-  age: number
+  age: number;
 
   @Prop({ required: true })
-  career: string
+  career: string;
 
   @Prop({ required: true, unique: true })
-  email: string
+  email: string;
 
   @Prop({ required: true, unique: true })
-  login: string
+  login: string;
 
   @Prop({ required: true })
   password: string;
 
   @Prop({ default: 1 })
-  status: number
+  status: number;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
@@ -35,9 +35,9 @@ UserSchema.pre('save', async function (next) {
     next();
   }
 
-  const salt = configEnv.salt
-  const password = this.get('password')
-  const passSalt = String(password + salt)
-  const encrypted = createHash('sha1').update(passSalt).digest('hex')
-  this.password = encrypted
-})
+  const salt = configEnv.salt;
+  const password = this.get('password');
+  const passSalt = String(password + salt);
+  const encrypted = createHash('sha1').update(passSalt).digest('hex');
+  this.password = encrypted;
+});
