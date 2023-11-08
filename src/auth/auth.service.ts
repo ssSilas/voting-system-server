@@ -20,7 +20,7 @@ export class AuthService {
   }
 
   async validateUser(login: string, password: string): Promise<User> {
-    const user = await this.userService.findByLogin(login);
+    const user = await this.userService.findByLoginOrEmail(login);
     if (!user) throw new UnauthorizedError('Usuario não autorizado');
 
     const hashedPass = this.hashPass(password);

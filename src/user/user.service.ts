@@ -28,7 +28,10 @@ export class UserService {
     }
   }
 
-  async findByLogin(login: string): Promise<User> {
-    return await this.userRepo.findOne({ login }, '_id email password');
+  async findByLoginOrEmail(loginOrEmail: string): Promise<User> {
+    return await this.userRepo.findOne(
+      { $or: [{ login: loginOrEmail }, { email: loginOrEmail }] },
+      '_id email password',
+    );
   }
 }
