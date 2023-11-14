@@ -1,6 +1,8 @@
-import { Prop, Schema } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { EmbeddedUser } from './dto/survey.dto';
+import { HydratedDocument } from 'mongoose';
 
+export type UserDocument = HydratedDocument<Survey>;
 @Schema({ timestamps: true, autoCreate: true })
 export class Survey {
   @Prop({ maxlength: 50 })
@@ -20,7 +22,6 @@ export class Survey {
 
   @Prop({ default: 1 })
   status: number;
-
-  @Prop({ required: true })
-  visibility: string;
 }
+
+export const SurveySchema = SchemaFactory.createForClass(Survey);

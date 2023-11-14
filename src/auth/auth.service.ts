@@ -26,7 +26,6 @@ export class AuthService {
     const hashedPass = this.hashPass(password);
     const comparePass = hashedPass == user.password;
     if (!comparePass) throw new UnauthorizedError('Usuario não autorizado');
-
     return user;
   }
 
