@@ -9,7 +9,7 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('login')
-  @UseGuards(AuthGuard('local')) //tratamento e validação de login
+  @UseGuards(AuthGuard('local'))
   async login(@Req() req: Request) {
     const { headers } = req;
     const user: PayloadData = req.user;

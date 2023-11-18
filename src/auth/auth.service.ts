@@ -21,11 +21,11 @@ export class AuthService {
 
   async validateUser(login: string, password: string): Promise<User> {
     const user = await this.userService.findByLoginOrEmail(login);
-    if (!user) throw new UnauthorizedError('Usuario não autorizado');
+    if (!user) throw new UnauthorizedError('Usuario não encontrado');
 
     const hashedPass = this.hashPass(password);
     const comparePass = hashedPass == user.password;
-    if (!comparePass) throw new UnauthorizedError('Usuario não autorizado');
+    if (!comparePass) throw new UnauthorizedError('Senha incorreta');
     return user;
   }
 
