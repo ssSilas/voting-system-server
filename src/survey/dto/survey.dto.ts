@@ -1,6 +1,6 @@
 import { ArrayMaxSize, ArrayMinSize, IsArray, IsString } from 'class-validator';
 
-export class EmbeddedUser {
+export class UserIdentityDTO {
   _id: string;
   email: string;
 }
