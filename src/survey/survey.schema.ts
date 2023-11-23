@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { EmbeddedUser } from './dto/survey.dto';
+import { UserIdentityDTO } from './dto/survey.dto';
 import { HydratedDocument } from 'mongoose';
 
 export type UserDocument = HydratedDocument<Survey>;
@@ -15,7 +15,7 @@ export class Survey {
   options: string[];
 
   @Prop({ required: true })
-  user: EmbeddedUser;
+  user: UserIdentityDTO;
 
   @Prop({ required: true })
   type: string;

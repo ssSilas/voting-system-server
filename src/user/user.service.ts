@@ -3,15 +3,22 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from './user.schema';
 import { UserBodyDto } from './dto/user.dto';
+import { CreateUserResponse } from './types/user.type';
 
 @Injectable()
 export class UserService {
   constructor(@InjectModel(User.name) private userRepo: Model<User>) {}
 
-  async createAccount(data: UserBodyDto): Promise<User> {
+  async createAccount(data: UserBodyDto): Promise<CreateUserResponse> {
     await this.emailExist(data.email);
     await this.loginExist(data.login);
-    return await this.userRepo.create({ ...data });
+
+    const create = await this.userRepo.create({ ...data });
+    return {
+      name: create.name,
+      login: create.login,
+      email: create.email,
+    };
   }
 
   private async emailExist(email: string): Promise<void> {

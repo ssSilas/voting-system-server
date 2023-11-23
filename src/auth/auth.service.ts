@@ -6,6 +6,7 @@ import { PayloadData } from './dto/auth.dto';
 import { JwtService, JwtSignOptions } from '@nestjs/jwt';
 import { UserService } from 'src/user/user.service';
 import { UnauthorizedError } from 'src/common/errors/types/UnauthorizedError';
+import { UserIdentityDTO } from 'src/survey/dto/survey.dto';
 
 @Injectable()
 export class AuthService {
@@ -36,7 +37,7 @@ export class AuthService {
     return encrypted;
   }
 
-  generateToken(user: PayloadData, host: string): string {
+  generateToken(user: UserIdentityDTO, host: string): string {
     const secretKey: string = configEnv.secret;
     const timeToken: string = configEnv.expireToken;
 
@@ -44,7 +45,7 @@ export class AuthService {
       iss: host,
       aud: host,
       data: {
-        id: user.id,
+        _id: user._id,
         email: user.email,
       },
     };

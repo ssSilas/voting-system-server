@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Delete,
+  Get,
   Post,
   Put,
   Query,
@@ -9,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { SurveyService } from './survey.service';
 import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
-import { EmbeddedUser, createSurveyDto } from './dto/survey.dto';
+import { UserIdentityDTO, createSurveyDto } from './dto/survey.dto';
 import { User } from 'src/decorator/user.decorator';
 
 @Controller('survey')
@@ -17,8 +18,18 @@ import { User } from 'src/decorator/user.decorator';
 export class SurveyController {
   constructor(private readonly surveyService: SurveyService) {}
 
+  @Get('all-ids')
+  async getAll(@User() user: UserIdentityDTO) {
+    return await this.surveyService.getAll(user);
+  }
+
+  @Get('by-id')
+  async getById(@Query('id') id: string, @User() user: UserIdentityDTO) {
+    return await this.surveyService.getById(id, user);
+  }
+
   @Post()
-  create(@User() user: EmbeddedUser, @Body() body: createSurveyDto) {
+  create(@User() user: UserIdentityDTO, @Body() body: createSurveyDto) {
     return this.surveyService.create(user, body);
   }
 

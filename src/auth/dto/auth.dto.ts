@@ -11,6 +11,6 @@ export class LoginBodyDto {
 }
 
 export class PayloadData {
-  id: string;
+  _id: string;
   email: string;
 }

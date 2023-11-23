@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsNumber, IsString } from "class-validator"
+import { IsEmail, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class UserBodyDto {
   @IsString()
@@ -7,20 +7,20 @@ export class UserBodyDto {
 
   @IsNumber()
   @IsNotEmpty()
-  age: number
+  age: number;
 
   @IsString()
   @IsNotEmpty()
-  career: string
+  career: string;
 
   @IsString()
   @IsNotEmpty()
   @IsEmail()
-  email: string
+  email: string;
 
   @IsString()
   @IsNotEmpty()
-  login: string
+  login: string;
 
   @IsString()
   @IsNotEmpty()
