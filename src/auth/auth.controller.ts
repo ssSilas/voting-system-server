@@ -2,7 +2,7 @@ import { Controller, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
-import { User } from 'src/decorator/user.decorator';
+import { User } from 'src/decorators/user.decorator';
 import { UserIdentityDTO } from 'src/survey/dto/survey.dto';
 
 @Controller()
