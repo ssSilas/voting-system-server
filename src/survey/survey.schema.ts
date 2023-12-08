@@ -3,7 +3,7 @@ import { UserIdentityDTO } from './dto/survey.dto';
 import { HydratedDocument } from 'mongoose';
 
 export type UserDocument = HydratedDocument<Survey>;
-@Schema({ timestamps: true, autoCreate: true })
+@Schema({ timestamps: true, autoCreate: true, versionKey: false })
 export class Survey {
   @Prop({ maxlength: 50 })
   title: string;

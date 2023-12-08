@@ -5,7 +5,7 @@ export class UserIdentityDTO {
   email: string;
 }
 
-export class createSurveyDto {
+export class CreateSurveyDto {
   @IsString()
   title: string;
 

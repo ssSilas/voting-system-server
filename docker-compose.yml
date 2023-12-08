@@ -6,18 +6,21 @@ services:
     entrypoint:
       - .docker/entrypoint.sh
     container_name: app-vote
+    restart: always
     ports:
       - "8090:8090"
     volumes:
       - .:/home/node/app
     depends_on:
-      - mongo
+      - db_staging
     env_file:
       - .env
     networks:
       - mongo-compose-network
-  mongo:
+  db_staging:
     image: mongo
+    container_name: db-staging
+    restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: testDb23root
@@ -25,6 +28,20 @@ services:
       - "27017:27017"
     volumes:
       - .docker/dbdata:/data/db
+    networks:
+      - mongo-compose-network
+    logging:
+      driver: "none"
+  db_test:
+    image: mongo
+    container_name: db-test
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: testDb23root
+    ports:
+      - "27018:27017"
+    volumes:
+      - .docker/dbdatatest:/data/db
     networks:
       - mongo-compose-network
     logging:
