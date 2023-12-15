@@ -3,7 +3,7 @@ import { UserIdentityDTO, CreateSurveyDto } from './dto/survey.dto';
 import { Survey } from './survey.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { BadRequestError } from '../common/errors/types/BadRequestError';
+import { NotFoundError } from '../common/errors/types/NotFoundError';
 import { SurveyResponse } from './types/user.type';
 
 @Injectable()
@@ -46,7 +46,7 @@ export class SurveyService {
   async checkIdExist(id: string): Promise<void> {
     const exist = await this.surveyRepo.exists({ _id: id });
     if (!exist) {
-      throw new BadRequestError('Enquete(s) não encontrada(s)!');
+      throw new NotFoundError('Enquete(s) não encontrada(s)!');
     }
   }
 }

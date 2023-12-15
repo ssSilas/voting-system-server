@@ -3,12 +3,22 @@ import { CreateSurveyDto, UserIdentityDTO } from './dto/survey.dto';
 import { SurveyService } from './survey.service';
 import { SurveyResponse } from './types/user.type';
 import { Test, TestingModule } from '@nestjs/testing';
+import { NotFoundException } from '@nestjs/common';
+import { NotFoundError } from '../common/errors/types/NotFoundError';
 
+interface ModelSurvey {
+  create: jest.Mock<any, any, any>;
+  find: jest.Mock<any, any, any>;
+  select: jest.Mock<any, any, any>;
+  findOne: jest.Mock<any, any, any>;
+  exists: jest.Mock<any, any, any>;
+}
 describe('SurveyService', () => {
   let service: SurveyService;
   let id: string;
   let user: UserIdentityDTO;
   let surveyDataResponse: SurveyResponse;
+  let surveyRepository: ModelSurvey;
 
   beforeEach(async () => {
     id = 'af9bea1b-0d23-4295-8db6-ad5c8ef4e984';
@@ -26,7 +36,7 @@ describe('SurveyService', () => {
       status: 1,
     };
 
-    const surveyRepository = {
+    surveyRepository = {
       create: jest.fn().mockResolvedValue(true),
       find: jest.fn().mockReturnThis(),
       select: jest.fn().mockResolvedValue([surveyDataResponse]),
@@ -75,6 +85,16 @@ describe('SurveyService', () => {
         '_id title description options user type status',
       );
       expect(surveyDataResponse).toStrictEqual(newSurvey[0]);
+    });
+
+    it('deve retornar erro, caso o id não exista', async () => {
+      surveyRepository.exists.mockReturnValue(false);
+      try {
+        await service.getById(undefined, user);
+      } catch (error) {
+        expect(error).toBeInstanceOf(NotFoundError);
+        expect(error.message).toEqual('Enquete(s) não encontrada(s)!');
+      }
     });
   });
 

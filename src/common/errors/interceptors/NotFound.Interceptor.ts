@@ -3,18 +3,18 @@ import {
   NestInterceptor,
   ExecutionContext,
   CallHandler,
-  BadRequestException,
+  NotFoundException,
 } from '@nestjs/common';
 import { Observable, catchError } from 'rxjs';
-import { BadRequestError } from '../types/BadRequestError';
+import { NotFoundError } from '../types/NotFoundError';
 
 @Injectable()
-export class BadRequestInterceptor implements NestInterceptor {
+export class NotFoundInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     return next.handle().pipe(
       catchError((error) => {
-        if (error instanceof BadRequestError) {
-          throw new BadRequestException(error.message);
+        if (error instanceof NotFoundError) {
+          throw new NotFoundException(error.message);
         } else {
           throw error;
         }
