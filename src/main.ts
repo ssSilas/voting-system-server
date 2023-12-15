@@ -3,7 +3,7 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { configEnv } from 'config/enviroments';
 import { UnauthorizedInterceptor } from './common/errors/interceptors/Unauthorized.Interceptor';
-import { BadRequestInterceptor } from './common/errors/interceptors/BadRequest.Interceptor';
+import { NotFoundInterceptor } from './common/errors/interceptors/NotFound.Interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -17,7 +17,7 @@ async function bootstrap() {
 
   app.useGlobalInterceptors(
     new UnauthorizedInterceptor(),
-    new BadRequestInterceptor(),
+    new NotFoundInterceptor(),
   );
   await app.listen(configEnv.portApp || 8090);
 
