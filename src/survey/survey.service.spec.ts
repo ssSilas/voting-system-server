@@ -1,16 +1,17 @@
 import { getModelToken } from '@nestjs/mongoose';
-import { CreateSurveyDto, UserIdentityDTO } from './dto/survey.dto';
+import { FillDataSurveyDto, UserIdentityDTO } from './dto/survey.dto';
 import { SurveyService } from './survey.service';
 import { SurveyResponse } from './types/user.type';
 import { Test, TestingModule } from '@nestjs/testing';
-import { NotFoundException } from '@nestjs/common';
 import { NotFoundError } from '../common/errors/types/NotFoundError';
 
 interface ModelSurvey {
   create: jest.Mock<any, any, any>;
   find: jest.Mock<any, any, any>;
   select: jest.Mock<any, any, any>;
+  deleteOne: jest.Mock<any, any, any>;
   findOne: jest.Mock<any, any, any>;
+  updateOne: jest.Mock<any, any, any>;
   exists: jest.Mock<any, any, any>;
 }
 describe('SurveyService', () => {
@@ -36,11 +37,22 @@ describe('SurveyService', () => {
       status: 1,
     };
 
+    const responseUpdate = {
+      acknowledged: true,
+      modifiedCount: 1,
+      upsertedId: null,
+      upsertedCount: 0,
+      matchedCount: 1,
+    };
+    const responseDelete = { acknowledged: true, deletedCount: 1 };
+
     surveyRepository = {
       create: jest.fn().mockResolvedValue(true),
       find: jest.fn().mockReturnThis(),
       select: jest.fn().mockResolvedValue([surveyDataResponse]),
+      deleteOne: jest.fn().mockResolvedValue(responseDelete),
       findOne: jest.fn().mockReturnThis(),
+      updateOne: jest.fn().mockResolvedValue(responseUpdate),
       exists: jest.fn().mockResolvedValue({ _id: id }),
     };
 
@@ -100,7 +112,7 @@ describe('SurveyService', () => {
 
   describe('create()', () => {
     it('deve criar uma enquete', async () => {
-      const createSurvey: CreateSurveyDto = {
+      const createSurvey: FillDataSurveyDto = {
         title: 'Quanto é 2+2',
         description: 'Some os valores, encontre os resultados e responda!',
         options: ['1', '5', '7', '9', '0'],
@@ -113,6 +125,71 @@ describe('SurveyService', () => {
       });
       expect(service['surveyRepo'].create).toHaveBeenCalled();
       expect(newSurvey).toBe(true);
+    });
+  });
+
+  describe('update()', () => {
+    const data: FillDataSurveyDto = {
+      title: 'Melhor filme 2023',
+      description: 'Qual o melhor filme de 2023',
+      options: [
+        'Homem-Aranha',
+        'Oppenheimer o Confronto',
+        'Guardiões da Galáxia: Volume 3',
+        'O Assassino',
+        'João VIctor 4: Baba Yago',
+      ],
+      type: 'Films',
+    };
+    it('deve atualizar uma enquete por id', async () => {
+      const newSurvey = await service.update(id, data);
+
+      expect(service['surveyRepo'].exists).toHaveBeenCalled();
+      expect(service['surveyRepo'].updateOne).toHaveBeenCalled();
+      expect(service['surveyRepo'].exists).toHaveBeenCalledTimes(1);
+      expect(newSurvey).toBe(true);
+    });
+
+    it('deve retornar erro, caso o id não exista', async () => {
+      surveyRepository.exists.mockReturnValue(false);
+      try {
+        await service.update(undefined, data);
+      } catch (error) {
+        expect(error).toBeInstanceOf(NotFoundError);
+        expect(error.message).toEqual('Enquete(s) não encontrada(s)!');
+      }
+    });
+  });
+  describe('delete()', () => {
+    const data: FillDataSurveyDto = {
+      title: 'Melhor filme 2023',
+      description: 'Qual o melhor filme de 2023',
+      options: [
+        'Homem-Aranha',
+        'Oppenheimer o Confronto',
+        'Guardiões da Galáxia: Volume 3',
+        'O Assassino',
+        'João VIctor 4: Baba Yago',
+      ],
+      type: 'Films',
+    };
+    it('deve deletar uma enquete por id', async () => {
+      const newSurvey = await service.delete(id);
+
+      expect(service['surveyRepo'].exists).toHaveBeenCalled();
+      expect(service['surveyRepo'].deleteOne).toHaveBeenCalled();
+      expect(service['surveyRepo'].exists).toHaveBeenCalledTimes(1);
+      expect(newSurvey).toBe(true);
+    });
+
+    it('deve retornar erro, caso o id não exista', async () => {
+      surveyRepository.exists.mockReturnValue(false);
+      try {
+        await service.update(undefined, data);
+      } catch (error) {
+        expect(error).toBeInstanceOf(NotFoundError);
+        expect(error.message).toEqual('Enquete(s) não encontrada(s)!');
+      }
     });
   });
 });
