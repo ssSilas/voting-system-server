@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { SurveyService } from './survey.service';
 import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
-import { UserIdentityDTO, CreateSurveyDto } from './dto/survey.dto';
+import { UserIdentityDTO, FillDataSurveyDto } from './dto/survey.dto';
 import { User } from 'src/decorators/user.decorator';
 
 @Controller('survey')
@@ -29,12 +29,12 @@ export class SurveyController {
   }
 
   @Post()
-  create(@User() user: UserIdentityDTO, @Body() body: CreateSurveyDto) {
+  create(@User() user: UserIdentityDTO, @Body() body: FillDataSurveyDto) {
     return this.surveyService.create(user, body);
   }
 
   @Put()
-  update(@Query('id') id: string, @Body() body: CreateSurveyDto) {
+  update(@Query('id') id: string, @Body() body: FillDataSurveyDto) {
     return this.surveyService.update(id, body);
   }
 
