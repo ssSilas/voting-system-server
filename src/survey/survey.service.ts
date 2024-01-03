@@ -5,6 +5,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { NotFoundError } from '../common/errors/types/NotFoundError';
 import { SurveyResponse } from './types/user.type';
+import { ApiTags } from '@nestjs/swagger';
 
 @Injectable()
 export class SurveyService {
