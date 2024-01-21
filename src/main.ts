@@ -28,6 +28,7 @@ async function bootstrap() {
     .setDescription('A voting system based on polls and simple questions')
     .setVersion('1.o')
     .addTag('auth')
+    .addTag('user')
     .addTag('survey')
     .build();
   const doc = SwaggerModule.createDocument(app, config);

@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { UserIdentityDTO } from './dto/survey.dto';
+import { UserIdentityDTO } from '../../helpers/dto/survey.dto';
 import { HydratedDocument } from 'mongoose';
 
 export type UserDocument = HydratedDocument<Survey>;

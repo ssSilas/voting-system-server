@@ -1,7 +1,10 @@
 import { getModelToken } from '@nestjs/mongoose';
-import { FillDataSurveyDto, UserIdentityDTO } from './dto/survey.dto';
+import {
+  FillDataSurveyDto,
+  SurveyFindResponse,
+  UserIdentityDTO,
+} from '../../helpers/dto/survey.dto';
 import { SurveyService } from './survey.service';
-import { SurveyResponse } from './types/user.type';
 import { Test, TestingModule } from '@nestjs/testing';
 import { NotFoundError } from '../common/errors/types/NotFoundError';
 
@@ -18,7 +21,7 @@ describe('SurveyService', () => {
   let service: SurveyService;
   let id: string;
   let user: UserIdentityDTO;
-  let surveyDataResponse: SurveyResponse;
+  let surveyDataResponse: SurveyFindResponse;
   let surveyRepository: ModelSurvey;
 
   beforeEach(async () => {
