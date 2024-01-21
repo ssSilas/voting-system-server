@@ -1,4 +1,4 @@
-import { UserIdentityDTO } from 'src/survey/dto/survey.dto';
+import { UserIdentityDTO } from 'helpers/dto/survey.dto';
 
 export type Payload = {
   iss: string;

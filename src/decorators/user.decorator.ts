@@ -1,5 +1,5 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
-import { UserIdentityDTO } from 'src/survey/dto/survey.dto';
+import { UserIdentityDTO } from 'helpers/dto/survey.dto';
 
 export const User = createParamDecorator(
   (data: string, ctx: ExecutionContext): UserIdentityDTO => {

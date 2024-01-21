@@ -1,23 +1,28 @@
 import { Injectable } from '@nestjs/common';
-import { UserIdentityDTO, FillDataSurveyDto } from './dto/survey.dto';
+import {
+  UserIdentityDTO,
+  FillDataSurveyDto,
+  SurveyFindResponse,
+} from '../../helpers/dto/survey.dto';
 import { Survey } from './survey.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { NotFoundError } from '../common/errors/types/NotFoundError';
-import { SurveyResponse } from './types/user.type';
-import { ApiTags } from '@nestjs/swagger';
 
 @Injectable()
 export class SurveyService {
   @InjectModel(Survey.name) private readonly surveyRepo: Model<Survey>;
 
-  async getAll(user: UserIdentityDTO): Promise<SurveyResponse[]> {
+  async getAll(user: UserIdentityDTO): Promise<SurveyFindResponse[]> {
     return await this.surveyRepo
       .find({ 'user._id': user._id })
       .select('_id title description options user type status');
   }
 
-  async getById(id: string, user: UserIdentityDTO): Promise<SurveyResponse> {
+  async getById(
+    id: string,
+    user: UserIdentityDTO,
+  ): Promise<SurveyFindResponse> {
     await this.checkIdExist(id);
     return await this.surveyRepo
       .findOne({ _id: id, 'user._id': user._id })

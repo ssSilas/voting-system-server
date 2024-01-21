@@ -2,11 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { configEnv } from 'config/enviroments';
 import { createHash } from 'crypto';
 import { User } from 'src/user/user.schema';
-import { PayloadData } from './dto/auth.dto';
+import { PayloadData, ResponseLogin } from '../../helpers/dto/auth.dto';
 import { JwtService, JwtSignOptions } from '@nestjs/jwt';
 import { UserService } from 'src/user/user.service';
 import { UnauthorizedError } from 'src/common/errors/types/UnauthorizedError';
-import { UserIdentityDTO } from 'src/survey/dto/survey.dto';
+import { UserIdentityDTO } from 'helpers/dto/survey.dto';
 
 @Injectable()
 export class AuthService {
@@ -15,7 +15,7 @@ export class AuthService {
     private readonly userService: UserService,
   ) {}
 
-  async signIn(payload: PayloadData, host: string) {
+  async signIn(payload: PayloadData, host: string): Promise<ResponseLogin> {
     const token = this.generateToken(payload, host);
     return { token };
   }

@@ -1,0 +1,255 @@
+{
+	"info": {
+		"_postman_id": "eb979052-e3ca-4d1e-a4b0-50523bfbe160",
+		"name": "Personal - Voting",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18745104",
+		"_collection_link": "https://lively-shuttle-343554.postman.co/workspace/My-Workspace~87a8ed32-2a17-47f9-8019-09b487411978/collection/18745104-eb979052-e3ca-4d1e-a4b0-50523bfbe160?action=share&source=collection_link&creator=18745104"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseLogin = JSON.parse(responseBody);",
+									"pm.collectionVariables.set(\"AUTH_TOKEN\", responseLogin.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"login\": \"DevAcess@DevAcess\",\n    \"password\": \"admin\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/login",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"AcessDev\",\n    \"age\": 25,\n    \"career\": \"operdevel\",\n    \"email\": \"AcessDev@silas.com.br\",\n    \"login\": \"AcessDev@DevAcess\",\n    \"password\": \"admin\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/user",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Survey",
+			"item": [
+				{
+					"name": "GetAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/survey/all-ids",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"survey",
+								"all-ids"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/survey/by-id?id=656e740f58ead27631778e86",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"survey",
+								"by-id"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "656e740f58ead27631778e86"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Quanto é 2+2\",\n    \"description\": \"Some os valores, encontre os resultados e responda!\",\n    \"options\": [\n        \"1\",\n        \"5\",\n        \"7\",\n        \"9\",\n        \"0\"\n    ],\n    \"type\": \"Geek\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/survey",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"survey"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update by id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Melhor filme 2023\",\n    \"description\": \"Qual o melhor filme de 2023\",\n    \"options\": [\n        \"Homem-Aranha\",\n        \"Oppenheimer o Confronto\",\n        \"Guardiões da Galáxia: Volume 3\",\n        \"O Assassino\",\n        \"João VIctor 4: Baba Yago\"\n    ],\n    \"type\": \"Films\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/survey?id=6558c9023a15176eac7d09fd",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"survey"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "6558c9023a15176eac7d09fd"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/survey?id=6552c4d4e48e1223d007a989",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"survey"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "6552c4d4e48e1223d007a989"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{AUTH_TOKEN}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "API_URL",
+			"value": "http://127.0.0.1:8090",
+			"type": "string"
+		},
+		{
+			"key": "AUTH_TOKEN",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
