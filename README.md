@@ -32,3 +32,20 @@ Se você deseja iniciar o projeto em seu ambiente de desenvolvimento, siga estas
 
    ```bash
    git clone https://github.com/seu-usuario/sistema-de-votacao.git
+   ```
+
+### Iniciar a aplicação
+
+O projeto roda em um container docker para rodar a aplicação e o banco de teste. Para utiliza-los rode o comando:
+
+   ```bash
+   docker-compose up app
+   ```
+
+### Docs - Swagger
+
+A aplicaçao possui uma documentação em Swagger, para acessá-la rode a aplicação e acesse **<http://127.0.0.1:8090/api#/>**.
+
+### Collection - Postman
+
+A collection está disponivel para uso na raiz do projeto, basta importa-la para o postman ou software semelhante.
